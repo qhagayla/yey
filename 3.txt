@@ -1,0 +1,38 @@
+from flask import Flask, jsonify, request
+app = Flask(__name__)
+movies = [
+    { 
+        "name": "One Pieces",
+        "casts": ["Monkey D. Luffy", "Roronoa Zoro"],
+        "genres": ["Adventure"]
+    },
+    { 
+        "name": "One Pieces",
+        "casts": ["Monkey D. Luffy", "Roronoa Zoro"],
+        "genres": ["Adventure"]
+    }
+]
+
+@app.route('/movies', methods=['GET'])
+def getMovies():
+    return jsonify(movies)
+
+@app.route('/movies', methods=['POST'])
+def add_movies():
+    movie = request.get_json()
+    movies.append(movie)
+    return {'id' : len(movies)}, 200
+
+@app.route('/movies', methods=['DELETE'])
+def delete_movies(index):
+    movies.pop(index)
+    return 'None', 200
+
+
+
+if __name__ == '__main__':
+    app.run()
+
+
+http://127.0.0.1:5000 /movies/0
+
